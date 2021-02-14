@@ -13,15 +13,15 @@
 
 <!-- X-Template -->
 <script type="text/x-template" id="login-template">
-<div id="login-template">
-    <div>
-        <input type="text" placeholder="ログインID" v-model="userid">
+    <div id="login-template">
+        <div>
+            <input type="text" placeholder="ログインID" v-model="userid">
+        </div>
+        <div>
+            <input type="password" placeholder="パスワード" v-model="password">
+        </div>
+        <button @click="login">ログイン</button>
     </div>
-    <div>
-        <input type="password" placeholder="パスワード" v-model="password">
-    </div>
-    <button @click="login">ログイン</button>
-</div>
 </script>
 
 <!-- Vue -->
