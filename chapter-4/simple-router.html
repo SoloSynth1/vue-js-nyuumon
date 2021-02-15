@@ -9,6 +9,7 @@
     <nav>
         <router-link to="/top">トップページ</router-link>
         <router-link to="/users">ユーザー一覧ページ</router-link>
+        <router-link to="/users/new">新規ユーザー登録</router-link>
     </nav>
     <router-view></router-view>
 </div>
@@ -18,14 +19,200 @@
 
 <script type="text/x-template" id="user-list">
     <div>
-        ユーザー一覧ページです。
+        <div class="loading" v-if="loading">
+            読み込み中…
+        </div>
+        <div v-if="error" class="error">
+            {{ error }}
+        </div>
+        <div v-for="user in users" :key="user.id">
+            <h2>{{ user.name }}</h2>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="user-detail">
+    <div>
+        <div class="loading" v-if="loading">
+            読み込み中…
+        </div>
+        <div v-if="error" class="error">
+            {{ error }}
+        </div>
+        <div v-if="user">
+            <h2>{{ user.name }}</h2>
+            <p>{{ user.description }}</p>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="user-create">
+    <div>
+        <div class="sending" v-if="sending">Sending...</div>
+        <div>
+            <h2>新規ユーザー作成</h2>
+            <div>
+                <label>
+                    名前：
+                    <input type="text" v-model="user.name">
+                </label>
+            </div>
+            <div>
+                <label>
+                    説明文：
+                    <textarea v-model="user.description"></textarea>
+                </label>
+            </div>
+            <div v-if="error" class="error">
+                {{ error }}
+            </div>
+            <div>
+                <input type="button" @click="createUser" value="送信">
+            </div>
+        </div>
     </div>
 </script>
 
 <script>
-    var UserList = {
-        template: '#user-list'
+    var postUser = function (params, callback) {
+        setTimeout(function() {
+            params.id = userData.length + 1;
+            userData.push(params);
+            callback(null, params);
+        }, 1000);
     };
+
+    var userData = [
+        {
+            id: 1,
+            name: 'Takuya Tejima',
+            description: '東南アジアで働くエンジニアです。'
+        },
+        {
+            id: 2,
+            name: 'Yohei Noda',
+            description: 'アウトドア．フットサルが趣味のエンジニアです。'
+        }
+    ];
+
+    var getUser = function (userId, callback) {
+        setTimeout( function () {
+            var filteredUsers = userData.filter(function (user) {
+                return user.id === parseInt(userId, 10);
+            });
+            callback(null, filteredUsers && filteredUsers[0]);
+        }, 1000);
+    };
+
+    var getUsers = function (callback) {
+        setTimeout( function () {
+            callback(null, userData);
+        }, 1000);
+    };
+
+    var UserList = {
+        template: '#user-list',
+        data: function () {
+            return {
+                loading: false,
+                users: function () {
+                    return [];
+                }
+            };
+        },
+        created: function () {
+            this.fetchData();
+        },
+        watch : {
+            '$route': 'fetchData'
+        },
+        methods: {
+            fetchData: function () {
+                this.loading = true;
+
+                getUsers((function (err, users) {
+                    this.loading = false;
+                    if (err) {
+                        this.error = err.toString();
+                    } else {
+                        this.users = users;
+                    }
+                }).bind(this))
+            }
+        }
+    };
+    var UserDetail = {
+        template: '#user-detail',
+        data: function () {
+            return {
+                loading: false,
+                user: null,
+                error: null
+            }
+        },
+        created: function () {
+            this.fetchData();
+        },
+        watch: {
+            '$route': 'fetchData'
+        },
+        methods: {
+            fetchData: function () {
+                this.loading = true;
+                getUser(this.$route.params.userId, (function (err, user) {
+                    this.loading = false;
+                    if (err) {
+                        this.error = err.toString();
+                    } else {
+                        this.user = user;
+                    }
+                }).bind(this));
+            }
+        }
+    };
+
+    var UserCreate = {
+        template: '#user-create',
+        data: function () {
+            return {
+                sending: false,
+                user: this.defaultUser(),
+                error: null
+            }
+        },
+        created: function () {
+        },
+        methods: {
+            defaultUser: function () {
+                return {
+                    name: '',
+                    description: ''
+                }
+            },
+            createUser: function () {
+                if (this.user.name.trim() === '') {
+                    this.error = 'Nameは必須です'
+                    return
+                }
+                if (this.user.description.trim() === '') {
+                    this.error = 'Descriptionは必須です'
+                    return
+                }
+                postUser(this.user, function (err, user) {
+                    this.sending = false;
+                    if (err) {
+                        this.error = err.toString();
+                    } else {
+                        this.error = null;
+                        this.user = this.defaultUser();
+                        alert('新規ユーザーが登録されました');
+                        this.$router.push('/users');
+                    }
+                }.bind(this));
+            }
+        }
+    }
+
     var router = new VueRouter({
         routes: [
             {
@@ -37,6 +224,14 @@
             {
                 path: '/users',
                 component: UserList
+            },
+            {
+                path: '/users/new',
+                component: UserCreate
+            },
+            {
+                path: '/users/:userId',
+                component: UserDetail
             }
         ]
     });
