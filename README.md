@@ -2,13 +2,13 @@
 
 ## About the repo / コードリポジトリについて / 有關本代碼庫
 
-My codes for studying & implementing the examples from the book "Vue.js入門 基礎から実践アプリケーション開発まで".
+My codes for studying & implementing the examples from the book "*Vue.js入門 基礎から実践アプリケーション開発まで*".
 Code snippets are organised by chapters, each stored into a separate folder.
 
-「Vue.js入門 基礎から実践アプリケーション開発まで」の中の例を研究および実装する（個人的な）コードリポジトリです。
+「*Vue.js入門 基礎から実践アプリケーション開発まで*」の中の例を研究および実装する（個人的な）コードリポジトリです。
 コードは章ごとに編成されており、それぞれが個別のフォルダーに保存されています。
 
-這是我的代碼用於研究和實現 "Vue.js入門 基礎から実践アプリケーション開発まで" 一書中的示例。
+這是我的代碼用於研究和實現 《*Vue.js入門 基礎から実践アプリケーション開発まで*》 一書中的示例。
 代碼段按章節組織，每個章節存儲在單獨的文件夾中。
 
 ## About the book / 本について / 有關該書
