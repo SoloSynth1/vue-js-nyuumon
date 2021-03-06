@@ -5,7 +5,7 @@
 My codes for studying & implementing the examples from the book "Vue.js入門 基礎から実践アプリケーション開発まで".
 Code snippets are organised by chapters, each stored into a separate folder.
 
-「Vue.js入門 基礎から実践アプリケーション開発まで」の例を研究および実装するためのコードリポジトリです。
+「Vue.js入門 基礎から実践アプリケーション開発まで」の中の例を研究および実装する（個人的な）コードリポジトリです。
 コードは章ごとに編成されており、それぞれが個別のフォルダーに保存されています。
 
 這是我的代碼用於研究和實現 "Vue.js入門 基礎から実践アプリケーション開発まで" 一書中的示例。
