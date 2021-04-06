@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue app</title>
+</head>
+<body>
+<script src="https://unpkg.com/vue@2.5.17"></script>
+<div id="app">
+    <my-page>
+        <!--  name 属性値が header の <slot> と置き換わるコンテンツ  -->
+        <h1 slot="header">This is my page</h1>
+        <!--  単一スロットと置き換わるコンテンツ  -->
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua. Turpis in eu mi bibendum neque egestas. Vitae congue eu consequat ac. Consequat nisl vel
+            pretium lectus quam id leo in. Sed nisi lacus sed viverra tellus in hac habitasse platea. Quis enim lobortis
+            scelerisque fermentum. Sapien nec sagittis aliquam malesuada bibendum. Dolor sit amet consectetur adipiscing
+            elit pellentesque habitant. Tellus cras adipiscing enim eu turpis. Pellentesque massa placerat duis
+            ultricies lacus sed turpis. Nisl suscipit adipiscing bibendum est ultricies integer quis auctor elit. Sem et
+            tortor consequat id porta nibh venenatis cras sed. Ante in nibh mauris cursus. Odio ut enim blandit volutpat
+            maecenas volutpat blandit aliquam. Scelerisque varius morbi enim nunc faucibus a.</p>
+        <!--  name 属性値が footer の <slot> と置き換わるコンテンツ  -->
+        <p slot="footer">This is footer</p>
+    </my-page>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
