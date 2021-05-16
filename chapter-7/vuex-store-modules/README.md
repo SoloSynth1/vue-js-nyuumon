@@ -1,4 +1,4 @@
-# vuex-sample
+# vuex-store-modules
 
 ## Project setup
 ```
